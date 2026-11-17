@@ -1,0 +1,289 @@
+/* Waybar style for sway: Catppuccin Mocha
+ * base #1e1e2e  mantle #181825  crust #11111b
+ * surface0 #313244  surface1 #45475a  overlay0 #6c7086
+ * text #cdd6f4  subtext0 #a6adc8
+ * blue #89b4fa  lavender #b4befe  sapphire #74c7ec  teal #94e2d5
+ * green #a6e3a1  yellow #f9e2af  peach #fab387  red #f38ba8  mauve #cba6f7
+ */
+
+* {
+  font-family: "Lexend", "JetBrainsMono Nerd Font", "Iosevka Nerd Font";
+  font-size: 14px;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+window#waybar {
+  background-color: rgba(17, 17, 27, 0.2);
+  color: #cdd6f4;
+  transition: background-color 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.1;
+}
+
+.modules-left {
+  margin-left: 6px;
+}
+
+.modules-right {
+  margin-right: 6px;
+}
+
+/* ---------- pills (standalone modules + groups) ---------- */
+
+#custom-update,
+#custom-weather,
+#tray,
+#mobo_drawer,
+#clock-group,
+#util-toggle-group,
+#mpris-group,
+#audio,
+#backlight-group,
+#battery-group {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  border: 1px solid #313244;
+  border-radius: 8px;
+  margin: 7px 4px;
+  padding: 0 8px;
+}
+
+/* ---------- modules inside groups: no pill of their own ---------- */
+
+#cpu,
+#temperature,
+#memory,
+#clock,
+#mpris,
+#pulseaudio,
+#backlight,
+#battery,
+#idle_inhibitor,
+#power-profiles-daemon {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0 6px;
+}
+
+/* ---------- custom/update (classes come from system-update.sh) ---------- */
+
+#custom-update {
+  min-width: 14px;
+}
+
+#custom-update.updates {
+  color: #f9e2af;
+}
+
+#custom-update.updated {
+  color: #a6e3a1;
+}
+
+/* ---------- custom/weather (classes come from weather.py) ---------- */
+
+#custom-weather {
+  color: #a6adc8;
+}
+
+#custom-weather.severe {
+  color: #fab387;
+}
+
+#custom-weather.sunnyDay {
+  color: #f9e2af;
+}
+
+#custom-weather.clearNight {
+  color: #b4befe;
+}
+
+#custom-weather.cloudyFoggyDay,
+#custom-weather.cloudyFoggyNight {
+  color: #bac2de;
+}
+
+#custom-weather.rainyDay,
+#custom-weather.rainyNight {
+  color: #74c7ec;
+}
+
+#custom-weather.showyIcyDay,
+#custom-weather.snowyIcyNight {
+  color: #94e2d5;
+}
+
+#custom-weather.default {
+  color: #cdd6f4;
+}
+
+/* ---------- separators ---------- */
+
+#custom-separator {
+  color: #45475a;
+  font-size: 10px;
+  margin: 0 2px;
+}
+
+/* ---------- mobo group: cpu / temperature / memory ---------- */
+
+#cpu {
+  color: #f38ba8;
+}
+
+#temperature {
+  color: #fab387;
+}
+
+#temperature.critical {
+  color: #f38ba8;
+}
+
+#memory {
+  color: #a6e3a1;
+}
+
+#memory.warning {
+  color: #f9e2af;
+}
+
+#memory.critical {
+  color: #f38ba8;
+}
+
+/* ---------- clock-group ---------- */
+
+#clock {
+  color: #b4befe;
+}
+
+/* ---------- util-toggle-group ---------- */
+
+#idle_inhibitor {
+  color: #6c7086;
+}
+
+#idle_inhibitor.activated {
+  color: #f9e2af;
+}
+
+#power-profiles-daemon {
+  color: #74c7ec;
+}
+
+#power-profiles-daemon.performance {
+  color: #f38ba8;
+}
+
+#power-profiles-daemon.balanced {
+  color: #89b4fa;
+}
+
+#power-profiles-daemon.power-saver {
+  color: #a6e3a1;
+}
+
+/* ---------- mpris-group ---------- */
+
+#mpris {
+  color: #a6e3a1;
+}
+
+#mpris.title {
+  color: #a6adc8;
+}
+
+#mpris.paused {
+  color: #6c7086;
+}
+
+/* ---------- tray ---------- */
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #f38ba8;
+}
+
+/* ---------- audio group ---------- */
+
+#pulseaudio {
+  color: #89b4fa;
+}
+
+#pulseaudio.icon {
+  font-size: 16px;
+}
+
+#pulseaudio.muted {
+  color: #f38ba8;
+}
+
+#pulseaudio.microphone {
+  color: #89b4fa;
+}
+
+#pulseaudio.microphone.source-muted {
+  color: #f38ba8;
+}
+
+/* ---------- backlight group ---------- */
+
+#backlight {
+  color: #f9e2af;
+}
+
+#backlight.icon {
+  font-size: 16px;
+}
+
+/* ---------- battery group ---------- */
+
+#battery {
+  color: #94e2d5;
+}
+
+#battery.icon {
+  font-size: 16px;
+}
+
+#battery.charging {
+  color: #a6e3a1;
+}
+
+#battery.warning:not(.charging) {
+  color: #f9e2af;
+}
+
+#battery.critical:not(.charging) {
+  color: #f38ba8;
+  animation: blink 0.8s linear infinite alternate;
+}
+
+@keyframes blink {
+  to {
+    color: #fab387;
+  }
+}
+
+/* ---------- tooltips ---------- */
+
+tooltip {
+  border-radius: 12px;
+  border: 1px solid #45475a;
+  padding: 12px;
+  background-color: #1e1e2e;
+}
+
+tooltip label {
+  font-family: "Iosevka Nerd Font";
+  color: #cdd6f4;
+  padding: 5px;
+}

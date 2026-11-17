@@ -1,0 +1,32 @@
+# set size
+width = 800
+height = 420
+anchor = center
+horizontal = false
+
+#set font and prompt
+font = JetBrainsMono Nerd Font
+font-size = 14
+prompt-text = "Run: "
+num-results = 8
+result-spacing = 8
+
+# ~80% opaque (cc)
+background-color = #1e1e2ecc
+text-color = #cdd6f4
+prompt-color = #f38ba8
+selection-color = #f9e2af
+selection-background = #45475a
+selection-background-padding = 6
+selection-background-corner-radius = 8
+
+# thin muted border
+outline-width = 0
+border-width = 2
+border-color = #45475a
+corner-radius = 14
+
+padding-top = 16
+padding-bottom = 16
+padding-left = 20
+padding-right = 20
