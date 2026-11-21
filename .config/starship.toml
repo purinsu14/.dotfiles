@@ -33,6 +33,9 @@ format = "[on](fg:gray) [$symbol$branch(:$remote_branch)]($style) "
 [git_status]
 style = "fg:dark"
 format = "([\\[$all_status$ahead_behind\\]]($style) )"
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
 
 [git_state]
 style = "fg:light"
