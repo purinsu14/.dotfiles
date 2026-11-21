@@ -1,13 +1,12 @@
-/* Waybar style for sway: Catppuccin Mocha
- * base #1e1e2e  mantle #181825  crust #11111b
- * surface0 #313244  surface1 #45475a  overlay0 #6c7086
- * text #cdd6f4  subtext0 #a6adc8
- * blue #89b4fa  lavender #b4befe  sapphire #74c7ec  teal #94e2d5
- * green #a6e3a1  yellow #f9e2af  peach #fab387  red #f38ba8  mauve #cba6f7
+/* Waybar style for sway: Red (matches the TTY / fastfetch palette)
+ * base #160a0d  surface0 #2a1218  surface1 #4a1c27  gray #888888
+ * text #f5e6e9  subtext #c9a9b0
+ * reds, light to dark:
+ *   #ff8fa3  #ff4d6d  #e03a58  #b3203a  #8c1a2e
  */
 
 * {
-  font-family: "Lexend", "JetBrainsMono Nerd Font", "Iosevka Nerd Font";
+  font-family: "Lilex Nerd Font Mono", "JetBrainsMono Nerd Font Mono", "Lilex Nerd Font", "JetBrainsMono Nerd Font", monospace;
   font-size: 14px;
   border: none;
   box-shadow: none;
@@ -15,8 +14,8 @@
 }
 
 window#waybar {
-  background-color: rgba(17, 17, 27, 0.2);
-  color: #cdd6f4;
+  background-color: rgba(22, 10, 13, 0.2);
+  color: #f5e6e9;
   transition: background-color 0.5s;
 }
 
@@ -32,42 +31,44 @@ window#waybar.hidden {
   margin-right: 6px;
 }
 
-/* ---------- pills (standalone modules + groups) ---------- */
+/* ---------- pills: every group and standalone module looks the same ---------- */
 
 #custom-update,
 #custom-weather,
-#tray,
+#idle_inhibitor,
 #mobo_drawer,
 #clock-group,
-#util-toggle-group,
 #mpris-group,
 #audio,
 #backlight-group,
-#battery-group {
-  background-color: #1e1e2e;
-  color: #cdd6f4;
-  border: 1px solid #313244;
+#network-group,
+#tray-group {
+  background-color: #160a0d;
+  color: #f5e6e9;
+  border: 1px solid #4a1c27;
   border-radius: 8px;
-  margin: 7px 4px;
-  padding: 0 8px;
+  margin: 7px 3px;
+  padding: 0 10px;
+  min-height: 26px;
 }
 
-/* ---------- modules inside groups: no pill of their own ---------- */
+/* ---------- modules inside groups: no pill of their own, spaced evenly ---------- */
 
 #cpu,
 #temperature,
+#custom-gpu,
 #memory,
+#disk,
 #clock,
 #mpris,
 #pulseaudio,
-#backlight,
-#battery,
-#idle_inhibitor,
-#power-profiles-daemon {
+#custom-brightness,
+#network,
+#tray {
   background-color: transparent;
   border: none;
   margin: 0;
-  padding: 0 6px;
+  padding: 0 7px;
 }
 
 /* ---------- custom/update (classes come from system-update.sh) ---------- */
@@ -77,131 +78,180 @@ window#waybar.hidden {
 }
 
 #custom-update.updates {
-  color: #f9e2af;
+  color: #ff8fa3;
 }
 
 #custom-update.updated {
-  color: #a6e3a1;
+  color: #888888;
 }
 
 /* ---------- custom/weather (classes come from weather.py) ---------- */
 
 #custom-weather {
-  color: #a6adc8;
+  color: #c9a9b0;
 }
 
 #custom-weather.severe {
-  color: #fab387;
+  color: #ff4d6d;
 }
 
 #custom-weather.sunnyDay {
-  color: #f9e2af;
+  color: #ff8fa3;
 }
 
 #custom-weather.clearNight {
-  color: #b4befe;
+  color: #e03a58;
 }
 
 #custom-weather.cloudyFoggyDay,
 #custom-weather.cloudyFoggyNight {
-  color: #bac2de;
+  color: #c9a9b0;
 }
 
 #custom-weather.rainyDay,
 #custom-weather.rainyNight {
-  color: #74c7ec;
+  color: #e03a58;
 }
 
 #custom-weather.showyIcyDay,
 #custom-weather.snowyIcyNight {
-  color: #94e2d5;
+  color: #ff8fa3;
 }
 
 #custom-weather.default {
-  color: #cdd6f4;
+  color: #f5e6e9;
 }
 
 /* ---------- separators ---------- */
 
 #custom-separator {
-  color: #45475a;
+  color: #8c1a2e;
   font-size: 10px;
   margin: 0 2px;
 }
 
-/* ---------- mobo group: cpu / temperature / memory ---------- */
+/* ---------- mobo drawer: cpu / temp / gpu / memory / disk ---------- */
 
 #cpu {
-  color: #f38ba8;
+  color: #ff4d6d;
+}
+
+#cpu.freq {
+  color: #ff8fa3;
 }
 
 #temperature {
-  color: #fab387;
+  color: #ff8fa3;
 }
 
-#temperature.critical {
-  color: #f38ba8;
+#custom-gpu {
+  color: #e03a58;
 }
 
 #memory {
-  color: #a6e3a1;
+  color: #ff8fa3;
+}
+
+#disk {
+  color: #e03a58;
+}
+
+#temperature.critical,
+#memory.critical {
+  color: #ff4d6d;
+  animation: blink 0.8s linear infinite alternate;
 }
 
 #memory.warning {
-  color: #f9e2af;
+  color: #ff4d6d;
 }
 
-#memory.critical {
-  color: #f38ba8;
+@keyframes blink {
+  to {
+    color: #f5e6e9;
+  }
 }
 
 /* ---------- clock-group ---------- */
 
 #clock {
-  color: #b4befe;
+  color: #ff8fa3;
 }
 
-/* ---------- util-toggle-group ---------- */
+/* ---------- idle inhibitor ---------- */
 
 #idle_inhibitor {
-  color: #6c7086;
+  color: #888888;
+  font-size: 19px;
 }
 
 #idle_inhibitor.activated {
-  color: #f9e2af;
-}
-
-#power-profiles-daemon {
-  color: #74c7ec;
-}
-
-#power-profiles-daemon.performance {
-  color: #f38ba8;
-}
-
-#power-profiles-daemon.balanced {
-  color: #89b4fa;
-}
-
-#power-profiles-daemon.power-saver {
-  color: #a6e3a1;
+  color: #ff4d6d;
 }
 
 /* ---------- mpris-group ---------- */
 
 #mpris {
-  color: #a6e3a1;
+  color: #ff4d6d;
+  font-size: 19px;
 }
 
 #mpris.title {
-  color: #a6adc8;
+  color: #c9a9b0;
+  font-size: 14px;
 }
 
 #mpris.paused {
-  color: #6c7086;
+  color: #888888;
 }
 
-/* ---------- tray ---------- */
+/* ---------- audio group ---------- */
+
+#pulseaudio {
+  color: #ff4d6d;
+}
+
+#pulseaudio.icon {
+  font-size: 20px;
+}
+
+#pulseaudio.muted {
+  color: #888888;
+}
+
+#pulseaudio.microphone {
+  color: #ff8fa3;
+}
+
+#pulseaudio.microphone.source-muted {
+  color: #888888;
+}
+
+/* ---------- backlight group ---------- */
+
+#custom-brightness {
+  color: #ff8fa3;
+}
+
+#custom-brightness.icon {
+  font-size: 20px;
+}
+
+/* ---------- network group ---------- */
+
+#network {
+  color: #e03a58;
+}
+
+#network.icon {
+  font-size: 20px;
+}
+
+#network.disconnected {
+  color: #888888;
+}
+
+/* ---------- tray group ---------- */
 
 #tray > .passive {
   -gtk-icon-effect: dim;
@@ -209,81 +259,20 @@ window#waybar.hidden {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background-color: #f38ba8;
-}
-
-/* ---------- audio group ---------- */
-
-#pulseaudio {
-  color: #89b4fa;
-}
-
-#pulseaudio.icon {
-  font-size: 16px;
-}
-
-#pulseaudio.muted {
-  color: #f38ba8;
-}
-
-#pulseaudio.microphone {
-  color: #89b4fa;
-}
-
-#pulseaudio.microphone.source-muted {
-  color: #f38ba8;
-}
-
-/* ---------- backlight group ---------- */
-
-#backlight {
-  color: #f9e2af;
-}
-
-#backlight.icon {
-  font-size: 16px;
-}
-
-/* ---------- battery group ---------- */
-
-#battery {
-  color: #94e2d5;
-}
-
-#battery.icon {
-  font-size: 16px;
-}
-
-#battery.charging {
-  color: #a6e3a1;
-}
-
-#battery.warning:not(.charging) {
-  color: #f9e2af;
-}
-
-#battery.critical:not(.charging) {
-  color: #f38ba8;
-  animation: blink 0.8s linear infinite alternate;
-}
-
-@keyframes blink {
-  to {
-    color: #fab387;
-  }
+  background-color: #b3203a;
 }
 
 /* ---------- tooltips ---------- */
 
 tooltip {
   border-radius: 12px;
-  border: 1px solid #45475a;
+  border: 1px solid #4a1c27;
   padding: 12px;
-  background-color: #1e1e2e;
+  background-color: #160a0d;
 }
 
 tooltip label {
-  font-family: "Iosevka Nerd Font";
-  color: #cdd6f4;
+  font-family: "Lilex Nerd Font Mono", "JetBrainsMono Nerd Font Mono", monospace;
+  color: #f5e6e9;
   padding: 5px;
 }

@@ -1,0 +1,86 @@
+# starship config theme rainyx
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+palette = "rose"
+
+format = """
+$username$hostname$directory$git_branch$git_status$git_state$python$nodejs$rust$lua$golang$jobs$cmd_duration
+$character"""
+
+[palettes.rose]
+bright = "#ff4d6d"
+light  = "#ff8fa3"
+mid    = "#e03a58"
+dark   = "#b3203a"
+deep   = "#8c1a2e"
+gray   = "#888888"
+text   = "#c9a9b0"
+
+[directory]
+style = "bold fg:mid"
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " \U000F033E"
+read_only_style = "fg:gray"
+
+[git_branch]
+symbol = "\ue0a0 "
+style = "fg:light"
+format = "[on](fg:gray) [$symbol$branch(:$remote_branch)]($style) "
+
+[git_status]
+style = "fg:dark"
+format = "([\\[$all_status$ahead_behind\\]]($style) )"
+
+[git_state]
+style = "fg:light"
+
+[cmd_duration]
+min_time = 2000
+style = "fg:gray"
+format = "[took](fg:gray) [$duration]($style) "
+
+[character]
+success_symbol = "[❯](fg:deep)"
+error_symbol = "[❯](bold fg:bright)"
+
+[username]
+style_user = "fg:text"
+style_root = "bold fg:bright"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = true
+style = "fg:text"
+format = "[@$hostname]($style) "
+
+[jobs]
+symbol = "+"
+style = "fg:gray"
+
+[python]
+symbol = "py "
+style = "fg:text"
+format = "[$symbol($version )]($style)"
+
+[nodejs]
+symbol = "js "
+style = "fg:text"
+format = "[$symbol($version )]($style)"
+
+[rust]
+symbol = "rs "
+style = "fg:text"
+format = "[$symbol($version )]($style)"
+
+[lua]
+symbol = "lua "
+style = "fg:text"
+format = "[$symbol($version )]($style)"
+
+[golang]
+symbol = "go "
+style = "fg:text"
+format = "[$symbol($version )]($style)"

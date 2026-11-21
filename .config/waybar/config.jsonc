@@ -1,6 +1,7 @@
-{ // waybar config
+{ // waybar config (desktop)
 	"layer": "top",
 	"position": "top",
+
 	"modules-left": [
 		"custom/separator#dot-line",
 		"group/mobo_drawer",
@@ -13,7 +14,7 @@
 		"custom/separator#dot-line",
 		"group/clock-group",
 		"custom/separator#dot-line",
-		"group/util-toggle-group",
+		"idle_inhibitor",
 	],
 	"modules-right": [
 		"group/mpris-group",
@@ -22,111 +23,142 @@
 		"custom/separator#dot-line",
 		"group/backlight-group",
 		"custom/separator#dot-line",
-		"group/battery-group",
+		"group/network-group",
 		"custom/separator#dot-line",
-		"tray",
+		"group/tray-group",
 	],
-	"tray": {
-		"icon-size": 16,
-		"spacing": 10,
+
+	// NOTE : Hardware (left drawer)
+	"cpu": {
+		"interval": 2,
+		"format": "󰻠 {usage:>2}%",
+		"on-click-right": "foot -e btop",
 	},
-	"clock#time": {
-		"format": "  {:%H:%M:%S}",
-		"format-alt": "  {:%a, %d %b}",
-		"interval": 1,
-		"tooltip-format": "<tt>{calendar}</tt>",
-		"calendar": {
-			"mode": "month",
-			"mode-mon-col": 3,
-			"format": {
-				"months": "<span color='#f5e0dc'><b>{}</b></span>",
-				"weekdays": "<span color='#f9e2af'><b>{}</b></span>",
-				"today": "<span color='#f38ba8'><b>{}</b></span>",
-			},
-		},
-		"actions": { "on-click-right": "mode" },
-		"min-length": 8,
-		"max-length": 28,
-	},
-	"clock#date": {
-		"format": "   {:%A, %d %B}",
-		"interval": 1,
-		"tooltip-format": "<tt>{calendar}</tt>",
-		"calendar": {
-			"mode": "month",
-			"mode-mon-col": 3,
-			"format": {
-				"months": "<span color='#f5e0dc'><b>{}</b></span>",
-				"weekdays": "<span color='#f9e2af'><b>{}</b></span>",
-				"today": "<span color='#f38ba8'><b>{}</b></span>",
-			},
-		},
-		"actions": { "on-click-right": "mode" },
-		"min-length": 8,
-		"max-length": 28,
+	"cpu#freq": {
+		"interval": 2,
+		"format": "󰓅 {avg_frequency:.1f}GHz",
+		"on-click-right": "foot -e btop",
 	},
 	"temperature": {
 		"interval": 10,
 		"tooltip": true,
+		// hwmon3 = k10temp (AMD CPU) on this machine. hwmon numbers can shift between boots.
+		// grep . /sys/class/hwmon/hwmon*/name
 		"hwmon-path": [
-			"/sys/class/hwmon/hwmon1/temp1_input",
-			"/sys/class/thermal/thermal_zone0/temp",
+			"/sys/class/hwmon/hwmon3/temp1_input",
 		],
 		"critical-threshold": 82,
-		"format-critical": "{temperatureC}°C {icon}",
-		"format": "{icon} {temperatureC}°C",
-		"format-icons": ["󰈸"],
+		"format": "󰔏 {temperatureC}°C",
+		"format-critical": "󰸁 {temperatureC}°C",
+	},
+	"custom/gpu": {
+		"exec": "~/.config/waybar/scripts/gpu.sh",
+		"return-type": "json",
+		"interval": 3,
+		"format": "󰢮 {}",
 		"on-click-right": "foot -e nvtop",
 	},
-	"cpu": {
-		"interval": 1,
-		"format": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% ",
-		"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
-	},
 	"memory": {
-		"states": {
-			"warning": 75,
-			"critical": 90,
-		},
-		"format": "  {percentage}%",
-		"format-critical": "󰀦 {percentage}%",
-		"tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB",
 		"interval": 5,
+		"states": { "warning": 75, "critical": 90 },
+		"format": "󰍛 {percentage}%",
+		"format-critical": "󰀦 {percentage}%",
+		"tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB",
 	},
-	"backlight#icon": {
+	"disk": {
+		"interval": 60,
+		"path": "/",
+		"format": "󰋊 {percentage_used}%",
+		"tooltip-format": "{used} / {total} used on {path}",
+	},
+
+	// NOTE : Clock
+	"clock#time": {
+		"format": "󰥔 {:%H:%M:%S}",
+		"format-alt": "󰃭 {:%a, %d %b}",
+		"interval": 1,
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"format": {
+				"months": "<span color='#ff8fa3'><b>{}</b></span>",
+				"weekdays": "<span color='#e03a58'><b>{}</b></span>",
+				"today": "<span color='#ff4d6d'><b>{}</b></span>",
+			},
+		},
+		"actions": { "on-click-right": "mode" },
+	},
+	"clock#date": {
+		"format": "󰃭 {:%A, %d %B}",
+		"interval": 60,
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"format": {
+				"months": "<span color='#ff8fa3'><b>{}</b></span>",
+				"weekdays": "<span color='#e03a58'><b>{}</b></span>",
+				"today": "<span color='#ff4d6d'><b>{}</b></span>",
+			},
+		},
+		"actions": { "on-click-right": "mode" },
+	},
+
+	// NOTE : Brightness (DDC via ddcutil, see scripts/brightness.sh)
+	"custom/brightness#icon": {
+		"exec": "~/.config/waybar/scripts/brightness.sh",
+		"return-type": "json",
+		"interval": "once",
+		"signal": 8,
 		"format": "{icon}",
-		"format-icons": ["", "", "", "", "", "", "", "", ""],
+		"format-icons": ["󰃞", "󰃟", "󰃠"],
+		"on-scroll-up": "~/.config/waybar/scripts/brightness.sh up >/dev/null; pkill -RTMIN+8 waybar",
+		"on-scroll-down": "~/.config/waybar/scripts/brightness.sh down >/dev/null; pkill -RTMIN+8 waybar",
 		"tooltip": true,
-		"tooltip-format": "{percent}%",
-		"on-scroll-up": "swayosd-client --brightness +5",
-		"on-scroll-down": "swayosd-client --brightness -5",
 	},
-	"backlight#text": {
-		"format": "{percent}%",
-		"tooltip": true,
-		"tooltip-format": "{percent}%",
-		"on-scroll-up": "swayosd-client --brightness +5",
-		"on-scroll-down": "swayosd-client --brightness -5",
+	"custom/brightness#text": {
+		"exec": "~/.config/waybar/scripts/brightness.sh",
+		"return-type": "json",
+		"interval": "once",
+		"signal": 8,
+		"format": "{text}",
+		"on-scroll-up": "~/.config/waybar/scripts/brightness.sh up >/dev/null; pkill -RTMIN+8 waybar",
+		"on-scroll-down": "~/.config/waybar/scripts/brightness.sh down >/dev/null; pkill -RTMIN+8 waybar",
+		"tooltip": false,
 	},
-	"network": {
+
+	// NOTE : Network (icon + text, same drawer style as the rest)
+	"network#icon": {
 		"format-wifi": "{icon}",
-		"format-disconnected": "\uf127",
-		"tooltip-format": "{essid}",
-		"on-click": "~/.config/waybar/scripts/network/rofi-network-manager.sh",
+		"format-ethernet": "󰈀",
+		"format-disconnected": "󰖪",
 		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}",
+		"tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+		"tooltip-format-disconnected": "Disconnected",
+		"on-click": "foot -e nmtui",
 	},
+	"network#text": {
+		"interval": 2,
+		"format-wifi": "{essid}  {bandwidthDownBytes}",
+		"format-ethernet": "{bandwidthDownBytes}  {bandwidthUpBytes}",
+		"format-disconnected": "offline",
+		"tooltip": false,
+		"on-click": "foot -e nmtui",
+	},
+
+	// NOTE : Audio
 	"pulseaudio#icon": {
 		"format": "{icon}",
-		"format-muted": "\uDB81\uDF5F",
-		"format-icons": {
-			"default": ["", "", "󰕾"],
-		},
+		"format-muted": "󰝟",
+		"format-icons": { "default": ["󰕿", "󰖀", "󰕾"] },
 		"on-click-middle": "pavucontrol",
 		"on-click": "swayosd-client --output-volume mute-toggle",
 		"on-scroll-up": "swayosd-client --output-volume +1",
 		"on-scroll-down": "swayosd-client --output-volume -1",
 		"tooltip": true,
-		"tooltip-format": "{sink_desk} | {volume}%",
+		"tooltip-format": "{desc} | {volume}%",
 	},
 	"pulseaudio#text": {
 		"format": "{volume}%",
@@ -139,7 +171,7 @@
 	},
 	"pulseaudio#microphone": {
 		"format": "{format_source} {source_volume}%",
-		"format-source": "",
+		"format-source": "󰍬",
 		"format-source-muted": "󰍭",
 		"on-click": "swayosd-client --input-volume mute-toggle",
 		"on-click-middle": "",
@@ -147,88 +179,40 @@
 		"on-scroll-down": "swayosd-client --input-volume -1",
 		"tooltip-format": "{source_desc} | {source_volume}%",
 	},
-	"battery#icon": {
-		"bat": "BAT0",
-		"adapter": "ACAD",
-		"interval": 60,
-		"states": {
-			"warning": 30,
-			"critical": 15,
+
+	// NOTE : Media
+	"mpris": {
+		"format": "{player_icon}",
+		"format-paused": "󰏤 {player_icon}",
+		"on-click-middle": "",
+		"on-click-right": "",
+		"player-icons": {
+			"default": "󰎆",
+			"spotify": "󰓇",
+			"firefox": "󰈹",
+			"chromium": "󰊯",
 		},
-		"max-length": 20,
-		"format": "{icon} ",
-		"format-warning": "{icon} ",
-		"format-critical": "{icon} ",
-		"format-charging": "\uDB80\uDC84",
-		"format-plugged": "\uDB81\uDEA5",
-		"tooltip": true,
-		"tooltip-format": "{capacity}%",
-		"format-alt": "{icon} {time}",
-		"format-full": "\uDB81\uDEA5",
-		"format-icons": ["", "", "", "", ""],
 	},
-	"battery#text": {
-		"bat": "BAT0",
-		"adapter": "ACAD",
-		"interval": 60,
-		"states": {
-			"warning": 30,
-			"critical": 15,
-		},
-		"max-length": 20,
-		"format": "{capacity}%",
-		"format-warning": "{capacity}%",
-		"format-critical": "{capacity}%",
-		"format-charging": "{capacity}%",
-		"format-plugged": "Plugged",
-		"tooltip": true,
-		"tooltip-format": "{capacity}%",
-		"format-full": "Full",
-		"format-icons": ["", "", "", "", ""],
+	"mpris#title": {
+		"format": "{title}",
+		"format-paused": "{title}",
+		"artist-len": 10,
+		"title-len": 20,
+		"on-click-middle": "",
+		"on-click-right": "",
 	},
+
+	// NOTE : Tray (plain group so it gets the same pill as the others)
+	"tray": {
+		"icon-size": 16,
+		"spacing": 10,
+	},
+
+	// NOTE : Misc
 	"custom/weather": {
 		"exec": "python3 ~/.config/waybar/scripts/weather.py",
 		"restart-interval": 300,
 		"return-type": "json",
-	},
-	"mpris#title": {
-		"format": "{title} ",
-		"format-paused": " {title} ",
-		"artist-len": 10,
-		"title-len": 20,
-		"on-click-middle": "",
-		"on-click-right": "",
-	},
-	"mpris": {
-		"format": "{player_icon}",
-		"format-paused": " | {player_icon}",
-		"artist-len": 10,
-		"title-len": 20,
-		"on-click-middle": "",
-		"on-click-right": "",
-		"player-icons": {
-			"default": " ",
-			"mpv": "🎵",
-			"spotify": " ",
-			"firefox": " ",
-			"chromium": " ",
-		},
-	},
-	// NOTE : Custom Modules
-	"custom/separator#dot-line": {
-		"format": "",
-		"interval": "once",
-		"tooltip": false,
-	},
-	"idle_inhibitor": {
-		"tooltip": true,
-		"tooltip-format-activated": "Idle_inhibitor active",
-		"tooltip-format-deactivated": "Idle_inhibitor not active",
-		"format": "{icon}",
-		"format-icons": {
-			"activated": " ",
-			"deactivated": " ",
-		},
 	},
 	"custom/update": {
 		"exec": "~/.config/waybar/scripts/system-update.sh",
@@ -238,25 +222,20 @@
 		"interval": 30,
 		"min-length": 3,
 	},
-	// NOTE : Groups from here
-	"group/audio": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "audio-child",
-			"transition-left-to-right": true,
-		},
-		"modules": ["pulseaudio#icon", "pulseaudio#text", "pulseaudio#microphone"],
+	"custom/separator#dot-line": {
+		"format": "",
+		"interval": "once",
+		"tooltip": false,
 	},
-	"group/mpris-group": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "mpris-child",
-			"transition-left-to-right": true,
-		},
-		"modules": ["mpris", "mpris#title"],
+	"idle_inhibitor": {
+		"tooltip": true,
+		"tooltip-format-activated": "Idle inhibitor: on",
+		"tooltip-format-deactivated": "Idle inhibitor: off",
+		"format": "{icon}",
+		"format-icons": { "activated": "󰈈", "deactivated": "󰈉" },
 	},
+
+	// NOTE : Groups (all drawers behave the same way)
 	"group/mobo_drawer": {
 		"orientation": "inherit",
 		"drawer": {
@@ -264,25 +243,7 @@
 			"children-class": "mobo-child",
 			"transition-left-to-right": true,
 		},
-		"modules": ["cpu", "temperature", "memory"],
-	},
-	"group/backlight-group": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "backlight-child",
-			"transition-left-to-right": true,
-		},
-		"modules": ["backlight#icon", "backlight#text"],
-	},
-	"group/battery-group": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "battery-child",
-			"transition-left-to-right": true,
-		},
-		"modules": ["battery#icon", "battery#text"],
+		"modules": ["cpu", "cpu#freq", "temperature", "custom/gpu", "memory", "disk"],
 	},
 	"group/clock-group": {
 		"orientation": "inherit",
@@ -293,13 +254,44 @@
 		},
 		"modules": ["clock#time", "clock#date"],
 	},
-	"group/util-toggle-group": {
+	"group/mpris-group": {
 		"orientation": "inherit",
 		"drawer": {
 			"transition-duration": 500,
-			"children-class": "util-child",
+			"children-class": "mpris-child",
 			"transition-left-to-right": true,
 		},
-		"modules": ["idle_inhibitor", "power-profiles-daemon"],
+		"modules": ["mpris", "mpris#title"],
+	},
+	"group/audio": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "audio-child",
+			"transition-left-to-right": true,
+		},
+		"modules": ["pulseaudio#icon", "pulseaudio#text", "pulseaudio#microphone"],
+	},
+	"group/backlight-group": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "backlight-child",
+			"transition-left-to-right": true,
+		},
+		"modules": ["custom/brightness#icon", "custom/brightness#text"],
+	},
+	"group/network-group": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "network-child",
+			"transition-left-to-right": true,
+		},
+		"modules": ["network#icon", "network#text"],
+	},
+	"group/tray-group": {
+		"orientation": "inherit",
+		"modules": ["tray"],
 	},
 }

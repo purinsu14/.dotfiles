@@ -1,49 +1,51 @@
-// rainyx fastfetch
+// rainyx fastfetch (pc)
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "type": "sixel",
-    "color": {"1": "#cba6f7", "2": "#89b4fa"},
-    "source": "~/.config/fastfetch/images/blue_void.png",
-    // "source": "~/.config/fastfetch/ascii/void.txt",
-    "padding": {
-      "top": 1,
-      "right": 3
-    },
-    "height": 15
+    "type": "file",
+    "source": "~/.config/fastfetch/ascii/rose.txt",
+    "color": { "1": "#e03a58" },
+    "padding": { "top": 1, "right": 3 }
   },
   "display": {
     "separator": " ▸▸ ",
     "color": {
-      "keys": "#89b4fa",
-      "title": "#cba6f7",
-      "separator": "#6c7086",
-      "output": "#cdd6f4"
-    },
+      "keys": "#ff4d6d",
+      "title": "#ff4d6d",
+      "separator": "#888888",
+      "output": "#c9a9b0"
+    }
   },
   "modules": [
     "break",
     {
       "type": "title",
-      "color": { "user": "#cba6f7", "at": "#6c7086", "host": "#89b4fa" }
+      "color": { "user": "#ff4d6d", "at": "#888888", "host": "#ff8fa3" }
     },
-    {
-      "type": "separator",
-      "outputColor": "#6c7086"
-    },
-    { "type": "os", "keyColor": "#89b4fa" },
-    { "type": "host", "keyColor": "#89b4fa" },
-    { "type": "kernel", "keyColor": "#89b4fa" },
-    { "type": "uptime", "keyColor": "#89b4fa" },
-    { "type": "packages", "keyColor": "#a6e3a1" },
-    { "type": "shell", "keyColor": "#a6e3a1" },
-    { "type": "de", "keyColor": "#a6e3a1" },
-    { "type": "wm", "keyColor": "#a6e3a1" },
-    { "type": "terminal", "keyColor": "#a6e3a1" },
-    { "type": "cpu", "keyColor": "#fab387" },
-    { "type": "gpu", "keyColor": "#fab387" },
-    { "type": "memory", "keyColor": "#fab387" },
-    { "type": "disk", "keyColor": "#fab387" },
+    { "type": "separator", "outputColor": "#888888" },
+
+    // system
+    { "type": "os", "keyColor": "#ff8fa3" },
+    { "type": "host", "keyColor": "#ff8fa3" },
+    { "type": "board", "keyColor": "#ff8fa3" },
+    { "type": "kernel", "keyColor": "#ff8fa3" },
+    { "type": "initsystem", "keyColor": "#ff8fa3" },
+    { "type": "uptime", "keyColor": "#ff8fa3" },
+
+    // software
+    { "type": "packages", "keyColor": "#ff4d6d" },
+    { "type": "shell", "keyColor": "#ff4d6d" },
+    { "type": "terminal", "keyColor": "#ff4d6d" },
+    { "type": "terminalfont", "keyColor": "#ff4d6d" },
+    { "type": "wm", "keyColor": "#ff4d6d" },
+
+    // hardware
+    { "type": "cpu", "keyColor": "#e03a58" },
+    { "type": "gpu", "keyColor": "#e03a58" },
+    { "type": "memory", "keyColor": "#e03a58" },
+    { "type": "swap", "keyColor": "#e03a58" },
+    { "type": "display", "keyColor": "#e03a58" },
+    { "type": "disk", "keyColor": "#e03a58" },
     "break",
     {
       "type": "colors",
@@ -53,5 +55,5 @@
         "width": 10
       }
     },
-  ],
+  ]
 }

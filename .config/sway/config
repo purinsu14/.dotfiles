@@ -1,10 +1,5 @@
 # Rainyx's own sway config lol
 
-# bar
-bar {
-    swaybar_command waybar
-}
-
 ### Variables
 #
 # Logo key. Use Mod1 for Alt, Mod4 for superkey?? FLIPPED ON MAC
@@ -277,6 +272,11 @@ bindsym $mod+r mode "resize"
     bindsym $alt+v exec cliphist list | tofi --prompt-text "clip: " | cliphist decode | wl-copy
 
 #add theme
-include themes/catpuccin-mocha
+include themes/rainyxtheme
+
+# bar
+bar {
+    swaybar_command waybar
+}
 
 include /etc/sway/config.d/*

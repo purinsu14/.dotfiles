@@ -1,0 +1,19 @@
+# neutrals
+set $base      #160a0d
+set $surface0  #1f1013
+set $surface1  #2e1a1f
+set $text      #e8d5d9
+set $subtext   #a88f95
+
+# muted reds, dusty wine tones instead of sharp red
+set $wine_bright #a8404f
+set $wine        #7a2f3b
+set $wine_deep   #5a242e
+
+# target                 border      bg          text      indicator    child_border
+client.focused           $wine_deep  $wine_deep  $text     $wine_bright $wine_deep
+client.focused_inactive  $surface1   $surface1   $subtext  $surface1    $surface1
+client.unfocused         $surface0   $surface0   $subtext  $surface0    $surface0
+client.urgent            $wine       $wine       $text     $wine_bright $wine
+client.placeholder       $surface0   $surface0   $text     $surface0    $surface0
+client.background        $base
