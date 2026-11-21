@@ -1,0 +1,14 @@
+# logs, backups, editor junk
+*.log
+*.bak
+*~
+*.swp
+.DS_Store
+
+# secrets
+.env
+*.key
+*.pem
+
+# nvim: leftovers from the kickstart clone
+.config/nvim/.git/

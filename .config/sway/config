@@ -7,7 +7,7 @@ bar {
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt, Mod4 for superkey
+# Logo key. Use Mod1 for Alt, Mod4 for superkey?? FLIPPED ON MAC
 set $mod Mod4
 set $alt Mod1
 # Home row direction keys, like vim
@@ -22,7 +22,7 @@ set $menu tofi-drun | xargs swaymsg exec --
 
 #title bar
 title_align center
-font pango:Lexend 10
+font pango:Lilex 10
 titlebar_padding 8 4
 titlebar_border_thickness 0
 
@@ -42,11 +42,11 @@ smart_gaps on
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/rainyx/Wallpapers/"output (3).png" fill
 #
 # Example configuration:
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+output HDMI-A-1 mode 1920x1080@180Hz
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -54,10 +54,11 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+        timeout 300 'swaylock -f -c 000000' \
+        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        before-sleep 'swaylock -f -c 000000'
+	
 
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -234,15 +235,15 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
-    #grim and slurp lol
-    bindsym Print exec grim -g "$(slurp)" - | wl-copy
-
+#
+# Executions/autostart
+#
     #current desktop... idk wtf
     exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
     #pipewire
     exec pipewire
+    exec wireplmuber
 
     # cliphist
     exec wl-paste --type image --watch cliphist store
@@ -251,26 +252,31 @@ bindsym $mod+r mode "resize"
 
     #swayosd
     exec swayosd-server
+
+    #cursor
+    seat seat0 xcursor_theme Bibata-Material-Salmon 24
+    exec_always {
+        gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Material-Salmon'
+        gsettings set org.gnome.desktop.interface cursor-size 24
+    }
+    exec XCURSOR_THEME=Bibata-Material-Salmon
+    exec XCURSOR_SIZE=24
 #
 # Custom Keybinds:
 #
+    #grim and slurp lol
+    bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
     #F1
-    bindsym Mod4+F1 exec $term -e nvim ~/.config/sway/config
+    bindsym $mod+F1 exec $term -e nvim ~/.config/sway/config
 
     #F2
-    bindsym Mod4+p exec swaylock -f -c 000000
+    bindsym $mod+p exec swaylock -f -c 000000
 
     #cliphist altv
-    bindsym alt+v exec cliphist list | tofi --prompt-text "clip: " | cliphist decode | wl-copy
+    bindsym $alt+v exec cliphist list | tofi --prompt-text "clip: " | cliphist decode | wl-copy
 
 #add theme
 include themes/catpuccin-mocha
-
-#cursor
-seat seat0 xcursor_theme catppuccin-mocha-dark-cursors 24
-exec_always {
-    gsettings set org.gnome.desktop.interface cursor-theme 'catppuccin-mocha-dark-cursors'
-    gsettings set org.gnome.desktop.interface cursor-size 30
-}
 
 include /etc/sway/config.d/*
