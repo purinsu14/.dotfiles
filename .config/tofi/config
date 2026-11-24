@@ -1,32 +1,33 @@
+# RAINYX TOFI
 # set size
 width = 800
-height = 420
+height = 340
 anchor = center
 horizontal = false
 
-#set font and prompt
-font = JetBrainsMono Nerd Font
+# set font and prompt
+font = Lilex Nerd Font Mono Medium
 font-size = 14
 prompt-text = "Run: "
-num-results = 8
-result-spacing = 8
+num-results = 10
+result-spacing = 3
 
 # ~80% opaque (cc)
-background-color = #1e1e2ecc
-text-color = #cdd6f4
-prompt-color = #f38ba8
-selection-color = #f9e2af
-selection-background = #45475a
-selection-background-padding = 6
-selection-background-corner-radius = 8
+background-color = #160a0dcc
+text-color = #e8d5d9
+prompt-color = #e03a58
+selection-color = #ff8fa3
+selection-background = #4a1c27
+selection-background-padding = 4
+selection-background-corner-radius = 0
 
 # thin muted border
 outline-width = 0
 border-width = 2
-border-color = #45475a
+border-color = #5a242e
 corner-radius = 14
 
-padding-top = 16
-padding-bottom = 16
-padding-left = 20
-padding-right = 20
+padding-top = 8
+padding-bottom = 8
+padding-left = 12
+padding-right = 12

@@ -183,7 +183,7 @@
 	// NOTE : Media
 	"mpris": {
 		"format": "{player_icon}",
-		"format-paused": "󰏤 {player_icon}",
+		"format-paused": "{player_icon}",
 		"on-click-middle": "",
 		"on-click-right": "",
 		"player-icons": {

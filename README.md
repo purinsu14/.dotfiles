@@ -1,28 +1,30 @@
 # rainysushixx's .dotfiles
 
-Void Linux with wayland.
-Including sway, waybar, foot, fish, nvim, etc.
+Optimized for void linux with swaywm (wayland).
+My red-ish theme included..
 Managed with [Stow](https://www.gnu.org/software/stow/).
 
 ## What's inside
 
 | Dir | What it is |
 |---|---|
-| `sway` | my wm |
-| `waybar` | wm status bar (with scripts and css) |
-| `foot` | terminal (wayland native btw) |
-| `fish` | my fav shell |
-| `nvim` | i use nvim btw (kickstart-based, `vim.pack`) |
-| `yazi` | file manager |
-| `tofi` | app launcher |
-| `swaylock` | lock screen |
 | `btop` | system monitor |
 | `fastfetch` | system info (with custom ASCII art ofc) |
+| `fish` | my shell |
+| `foot` | terminal (wayland native btw) |
+| `fuzzel` | better app launcher (tofi alternative) |
 | `gtk-3.0` | GTK settings |
-| `pipewire` | audio drop-ins (using symlinks to system examples) |
-| `xdg-desktop-portal*` | portals, incl. termfilechooser (yazi as file picker) |
-| `yt-dlp` | yt-dlp config |
 | `mimeapps.list` | my default applications |
+| `nvim` | i use nvim btw (kickstart-based, `vim.pack`) |
+| `pipewire` | audio drop-ins (using symlinks to system examples) |
+| `starship.toml` | starship prompt customization |
+| `sway` | my wm |
+| `swaylock` | lock screen |
+| `tofi` | app launcher (replaced by fuzzel) |
+| `waybar` | wm status bar (with scripts and css) |
+| `xdg-desktop-portal*` | portals, incl. termfilechooser (yazi as file picker) |
+| `yazi` | file manager |
+| `yt-dlp` | yt-dlp config |
 
 ## Install
 

@@ -20,8 +20,6 @@ text   = "#c9a9b0"
 [directory]
 style = "bold fg:mid"
 format = "[$path]($style)[$read_only]($read_only_style) "
-truncation_length = 3
-truncation_symbol = "…/"
 read_only = " \U000F033E"
 read_only_style = "fg:gray"
 

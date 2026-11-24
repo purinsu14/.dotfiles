@@ -13,7 +13,8 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 # Your preferred application launcher
-set $menu tofi-drun | xargs swaymsg exec --
+# set $menu tofi-drun | xargs swaymsg exec --
+set $menu fuzzel
 
 #title bar
 title_align center
@@ -37,7 +38,7 @@ smart_gaps on
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/rainyx/Wallpapers/"output (3).png" fill
+output * bg /home/rainyx/Pictures/Wallpapers/"output (3).png" fill
 #
 # Example configuration:
 #
@@ -50,13 +51,13 @@ output HDMI-A-1 mode 1920x1080@180Hz
 # Example configuration:
 #
 exec swayidle -w \
-        timeout 300 'swaylock -f -c 000000' \
-        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        timeout 600 'swaylock -f -c 000000' \
+        timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
         before-sleep 'swaylock -f -c 000000'
 	
 
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
+# This will lock your screen after 600 seconds of inactivity, then turn off
+# your displays after another 600 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
@@ -249,7 +250,7 @@ bindsym $mod+r mode "resize"
     exec swayosd-server
 
     #cursor
-    seat seat0 xcursor_theme Bibata-Material-Salmon 24
+    seat * xcursor_theme Bibata-Material-Salmon 24
     exec_always {
         gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Material-Salmon'
         gsettings set org.gnome.desktop.interface cursor-size 24
@@ -269,7 +270,8 @@ bindsym $mod+r mode "resize"
     bindsym $mod+p exec swaylock -f -c 000000
 
     #cliphist altv
-    bindsym $alt+v exec cliphist list | tofi --prompt-text "clip: " | cliphist decode | wl-copy
+    # bindsym $alt+v exec cliphist list | tofi --prompt-text "cliphist: " | cliphist decode | wl-copy
+    bindsym $alt+v exec cliphist list | fuzzel --dmenu --with-nth 2 --prompt "cliphist: " | cliphist decode | wl-copy
 
 #add theme
 include themes/rainyxtheme

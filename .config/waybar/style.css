@@ -6,7 +6,7 @@
  */
 
 * {
-  font-family: "Lilex Nerd Font Mono", "JetBrainsMono Nerd Font Mono", "Lilex Nerd Font", "JetBrainsMono Nerd Font", monospace;
+  font-family: "Lilex Nerd Font Mono Medium", "JetBrainsMono Nerd Font Mono", "Lilex Nerd Font", "JetBrainsMono Nerd Font", monospace;
   font-size: 14px;
   border: none;
   box-shadow: none;
@@ -31,7 +31,7 @@ window#waybar.hidden {
   margin-right: 6px;
 }
 
-/* ---------- pills: every group and standalone module looks the same ---------- */
+/* pills: every group and standalone module looks the same */
 
 #custom-update,
 #custom-weather,
@@ -52,7 +52,7 @@ window#waybar.hidden {
   min-height: 26px;
 }
 
-/* ---------- modules inside groups: no pill of their own, spaced evenly ---------- */
+/* modules inside groups: no pill of their own, spaced evenly */
 
 #cpu,
 #temperature,
@@ -71,7 +71,7 @@ window#waybar.hidden {
   padding: 0 7px;
 }
 
-/* ---------- custom/update (classes come from system-update.sh) ---------- */
+/* custom/update (classes come from system-update.sh) */
 
 #custom-update {
   min-width: 14px;
@@ -85,7 +85,7 @@ window#waybar.hidden {
   color: #888888;
 }
 
-/* ---------- custom/weather (classes come from weather.py) ---------- */
+/* custom/weather (classes come from weather.py) */
 
 #custom-weather {
   color: #c9a9b0;
@@ -122,7 +122,7 @@ window#waybar.hidden {
   color: #f5e6e9;
 }
 
-/* ---------- separators ---------- */
+/* separators */
 
 #custom-separator {
   color: #8c1a2e;
@@ -130,14 +130,14 @@ window#waybar.hidden {
   margin: 0 2px;
 }
 
-/* ---------- mobo drawer: cpu / temp / gpu / memory / disk ---------- */
+/* mobo drawer */
 
 #cpu {
-  color: #ff4d6d;
+  color: #e03a58;
 }
 
 #cpu.freq {
-  color: #ff8fa3;
+  color: #ff4d6d;
 }
 
 #temperature {
@@ -149,21 +149,21 @@ window#waybar.hidden {
 }
 
 #memory {
-  color: #ff8fa3;
+  color: #ff4d6d;
 }
 
 #disk {
-  color: #e03a58;
+  color: #ff8fa3;
 }
 
 #temperature.critical,
 #memory.critical {
-  color: #ff4d6d;
+  color: #e03a58;
   animation: blink 0.8s linear infinite alternate;
 }
 
 #memory.warning {
-  color: #ff4d6d;
+  color: #e03a58;
 }
 
 @keyframes blink {
@@ -172,13 +172,13 @@ window#waybar.hidden {
   }
 }
 
-/* ---------- clock-group ---------- */
+/* clock-group */
 
 #clock {
   color: #ff8fa3;
 }
 
-/* ---------- idle inhibitor ---------- */
+/* idle inhibitor */
 
 #idle_inhibitor {
   color: #888888;
@@ -189,7 +189,7 @@ window#waybar.hidden {
   color: #ff4d6d;
 }
 
-/* ---------- mpris-group ---------- */
+/* mpris-group */
 
 #mpris {
   color: #ff4d6d;
@@ -205,7 +205,7 @@ window#waybar.hidden {
   color: #888888;
 }
 
-/* ---------- audio group ---------- */
+/* audio group */
 
 #pulseaudio {
   color: #ff4d6d;
@@ -227,23 +227,25 @@ window#waybar.hidden {
   color: #888888;
 }
 
-/* ---------- backlight group ---------- */
+/* backlight group */
 
 #custom-brightness {
   color: #ff8fa3;
 }
 
 #custom-brightness.icon {
+  color: #e03a58;
   font-size: 20px;
 }
 
-/* ---------- network group ---------- */
+/* network group */
 
 #network {
-  color: #e03a58;
+  color: #ff8fa3;
 }
 
 #network.icon {
+  color: #e03a58;
   font-size: 20px;
 }
 
@@ -251,7 +253,7 @@ window#waybar.hidden {
   color: #888888;
 }
 
-/* ---------- tray group ---------- */
+/* tray group */
 
 #tray > .passive {
   -gtk-icon-effect: dim;
@@ -262,7 +264,7 @@ window#waybar.hidden {
   background-color: #b3203a;
 }
 
-/* ---------- tooltips ---------- */
+/* tooltips */
 
 tooltip {
   border-radius: 12px;
